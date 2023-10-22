@@ -1,0 +1,42 @@
+version: '3.8'
+services:
+  mysql:
+    image: mariadb:latest
+    container_name: mysql-container
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - ./.mysql:/var/lib/mysql
+      - ./migrations:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"
+    networks:
+      - hexagonal-project-network
+    restart: always
+
+  apache:
+    container_name: apache-with-php
+    build:
+      context: ./
+    env_file:
+      - ./.env
+    volumes:
+      - .:/var/www/html
+    ports:
+      - "80:80"
+    networks:
+      - hexagonal-project-network
+    hostname: arch-hexagonal.project
+    restart: always
+    depends_on:
+      - mysql
+    environment:
+      XDEBUG_MODE: ${XDEBUG_MODE}
+    # command: composer install --no-suggest
+
+networks:
+  hexagonal-project-network:
+    driver: bridge

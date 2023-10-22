@@ -1,0 +1,8 @@
+# Directories
+/vendor
+/.mysql
+/.phpunit
+/.phpunit.cache
+# Files
+.phpunit.result.cache
+composer.lock
