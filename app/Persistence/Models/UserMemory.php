@@ -2,7 +2,7 @@
 
 namespace App\Persistence\Models;
 
-use Core\Adapters\UserInterfaceDao;
+use Core\Interfaces\UserInterfaceDao;
 use Core\Entities\User;
 use Exception;
 

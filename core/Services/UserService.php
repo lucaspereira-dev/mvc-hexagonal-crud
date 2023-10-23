@@ -2,8 +2,8 @@
 
 namespace Core\Services;
 
-use Core\Adapters\UserInterfaceDao;
-use Core\Adapters\UserServiceInterface;
+use Core\Interfaces\UserInterfaceDao;
+use Core\Interfaces\UserServiceInterface;
 use Core\Entities\User;
 use Core\Exceptions\InvalidArgumentEmail;
 use Core\Exceptions\UserException;

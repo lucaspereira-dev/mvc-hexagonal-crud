@@ -3,7 +3,7 @@
 namespace App\Persistence\Models;
 
 use App\Persistence\Connections\ConnectionInterface;
-use Core\Adapters\UserInterfaceDao;
+use Core\Interfaces\UserInterfaceDao;
 use Core\Entities\User;
 
 final class UserSqlPdo implements UserInterfaceDao

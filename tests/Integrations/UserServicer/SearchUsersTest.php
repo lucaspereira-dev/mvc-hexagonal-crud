@@ -3,7 +3,7 @@
 namespace Tests\Integrations\UserService;
 
 use App\Persistence\Models\UserMemory;
-use Core\Adapters\UserServiceInterface;
+use Core\Interfaces\UserServiceInterface;
 use Core\Entities\User;
 use Core\Exceptions\UserException;
 use PHPUnit\Framework\TestCase;

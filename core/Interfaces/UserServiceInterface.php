@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Adapters;
+namespace Core\Interfaces;
 
 use Core\Entities\User;
 
