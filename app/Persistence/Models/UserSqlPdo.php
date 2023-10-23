@@ -3,10 +3,10 @@
 namespace App\Persistence\Models;
 
 use App\Persistence\Connections\ConnectionInterface;
-use Core\Interfaces\UserInterfaceDao;
+use Core\Interfaces\UserDao;
 use Core\Entities\User;
 
-final class UserSqlPdo implements UserInterfaceDao
+final class UserSqlPdo implements UserDao
 {
     private $fields = ['id', 'name', 'email', 'password', 'birthday'];
     public function __construct(

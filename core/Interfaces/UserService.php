@@ -4,8 +4,8 @@ namespace Core\Interfaces;
 
 use Core\Entities\User;
 
-interface UserServiceInterface {
-    public function __construct(UserInterfaceDao $userInterfaceDao);
+interface UserService {
+    public function __construct(UserDao $userInterfaceDao);
     
     public function create(array $payload): void;
 

@@ -1,18 +1,18 @@
 <?php
 
-namespace Tests\Integrations\UserService;
+namespace Tests\Integrations\UserServiceImpl;
 
 use App\Persistence\Models\UserMemory;
-use Core\Interfaces\UserServiceInterface;
+use Core\Interfaces\UserService;
 use Core\Entities\User;
 use Core\Exceptions\UserException;
 use PHPUnit\Framework\TestCase;
-use Core\Services\UserService;
+use Core\Services\UserServiceImpl;
 
 final class SearchUsersTest extends TestCase
 {
 
-    private UserServiceInterface $serviceUser;
+    private UserService $serviceUser;
     private $payloads = [
         [
             'id' => '43210',
@@ -32,7 +32,7 @@ final class SearchUsersTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->serviceUser = new UserService(new UserMemory());
+        $this->serviceUser = new UserServiceImpl(new UserMemory());
         $this->createDefaultUser();
     }
 

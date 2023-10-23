@@ -4,13 +4,13 @@ namespace App\Controllers;
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use Core\Interfaces\UserServiceInterface;
+use Core\Interfaces\UserService;
 
 final class UserController extends Controller
 {
     private $userService;
 
-    public function __construct(UserServiceInterface $userService)
+    public function __construct(UserService $userService)
     {
         $this->userService = $userService;
     }

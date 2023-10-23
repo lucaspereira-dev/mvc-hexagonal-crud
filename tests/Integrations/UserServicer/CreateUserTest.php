@@ -1,20 +1,20 @@
 <?php
 
-namespace Tests\Integrations\UserService;
+namespace Tests\Integrations\UserServiceImpl;
 
 use App\Persistence\Models\UserMemory;
-use Core\Interfaces\UserServiceInterface;
+use Core\Interfaces\UserService;
 use Core\Exceptions\UserException;
 use PHPUnit\Framework\TestCase;
-use Core\Services\UserService;
+use Core\Services\UserServiceImpl;
 
 final class CreateUserTest extends TestCase {
 
-    private UserServiceInterface $serviceUser;
+    private UserService $serviceUser;
 
     protected function setUp(): void
     {
-        $this->serviceUser = new UserService(new UserMemory());
+        $this->serviceUser = new UserServiceImpl(new UserMemory());
     }
 
     /**

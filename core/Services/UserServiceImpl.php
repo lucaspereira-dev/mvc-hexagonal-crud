@@ -2,19 +2,19 @@
 
 namespace Core\Services;
 
-use Core\Interfaces\UserInterfaceDao;
-use Core\Interfaces\UserServiceInterface;
+use Core\Interfaces\UserDao;
+use Core\Interfaces\UserService;
 use Core\Entities\User;
 use Core\Exceptions\InvalidArgumentEmail;
 use Core\Exceptions\UserException;
 use Exception;
 use InvalidArgumentException;
 
-final class UserService implements UserServiceInterface
+final class UserServiceImpl implements UserService
 {
 
     public function __construct(
-        private readonly UserInterfaceDao $userInterfaceDao
+        private readonly UserDao $userInterfaceDao
     ) {
     }
 

@@ -4,7 +4,7 @@ namespace Core\Interfaces;
 
 use Core\Entities\User;
 
-interface UserInterfaceDao {
+interface UserDao {
     public function saveUser(User $user): void;
     public function updateUser(array $user): void;
     public function findUserById(string $idUser): array | null;

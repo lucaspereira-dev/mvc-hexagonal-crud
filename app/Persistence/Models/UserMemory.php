@@ -2,11 +2,11 @@
 
 namespace App\Persistence\Models;
 
-use Core\Interfaces\UserInterfaceDao;
+use Core\Interfaces\UserDao;
 use Core\Entities\User;
 use Exception;
 
-final class UserMemory implements UserInterfaceDao
+final class UserMemory implements UserDao
 {
     private $users = [];
 
