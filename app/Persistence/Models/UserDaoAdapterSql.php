@@ -2,15 +2,15 @@
 
 namespace App\Persistence\Models;
 
-use App\Persistence\Connections\ConnectionInterface;
+use App\Persistence\Interfaces\DatabaseOperations;
 use Core\Interfaces\UserDao;
 use Core\Entities\User;
 
-final class UserSqlPdo implements UserDao
+final class UserDaoAdapterSql implements UserDao
 {
     private $fields = ['id', 'name', 'email', 'password', 'birthday'];
     public function __construct(
-        private readonly ConnectionInterface $db
+        private readonly DatabaseOperations $db
     ) {
     }
 

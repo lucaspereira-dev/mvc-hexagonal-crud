@@ -2,7 +2,7 @@
 
 namespace Tests\Integrations\UserServiceImpl;
 
-use App\Persistence\Models\UserMemory;
+use App\Persistence\Models\UserDaoAdapterMemory;
 use Core\Interfaces\UserService;
 use Core\Exceptions\UserException;
 use PHPUnit\Framework\TestCase;
@@ -31,7 +31,7 @@ final class UpdateUserTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->serviceUser = new UserServiceImpl(new UserMemory());
+        $this->serviceUser = new UserServiceImpl(new UserDaoAdapterMemory());
         $this->createDefaultUser();
     }
 

@@ -6,7 +6,7 @@ use Core\Interfaces\UserDao;
 use Core\Entities\User;
 use Exception;
 
-final class UserMemory implements UserDao
+final class UserDaoAdapterMemory implements UserDao
 {
     private $users = [];
 

@@ -2,13 +2,13 @@
 
 namespace Tests\Integrations;
 
-use App\Persistence\Connections\ConnectionInterface;
+use App\Persistence\Interfaces\DatabaseOperations;
 use App\Persistence\Connections\MysqlPdo;
 use PHPUnit\Framework\TestCase;
 
 final class MysqlPdoTest extends TestCase
 {
-    private ConnectionInterface $db;
+    private DatabaseOperations $db;
     protected function setUp(): void
     {
         $this->db = new MysqlPdo();

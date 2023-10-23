@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Persistence\Connections;
+namespace App\Persistence\Interfaces;
 
-interface ConnectionInterface {
+interface DatabaseOperations {
     public function query($statement, $params = []);
     public function find(string $table, array $columns, array $where = []);
     public function select(string $table, array $columns, array $where = []);

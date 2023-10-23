@@ -2,7 +2,7 @@
 
 namespace Tests\Integrations\UserServiceImpl;
 
-use App\Persistence\Models\UserMemory;
+use App\Persistence\Models\UserDaoAdapterMemory;
 use Core\Interfaces\UserService;
 use Core\Entities\User;
 use Core\Exceptions\UserException;
@@ -32,7 +32,7 @@ final class SearchUsersTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->serviceUser = new UserServiceImpl(new UserMemory());
+        $this->serviceUser = new UserServiceImpl(new UserDaoAdapterMemory());
         $this->createDefaultUser();
     }
 

@@ -2,11 +2,12 @@
 
 namespace App\Persistence\Connections;
 
+use App\Persistence\Interfaces\DatabaseOperations;
 use PDO;
 use Exception;
 use PDOException;
 
-final class MysqlPdo implements ConnectionInterface
+final class MysqlPdo implements DatabaseOperations
 {
     private $connection;
 
