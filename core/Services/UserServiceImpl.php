@@ -14,7 +14,7 @@ final class UserServiceImpl implements UserService
 {
 
     public function __construct(
-        private readonly UserDao $userInterfaceDao
+        private readonly UserDao $userDao
     ) {
     }
 
@@ -27,7 +27,7 @@ final class UserServiceImpl implements UserService
             $payload["password"],
             $payload["birthday"]
         );
-        $this->userInterfaceDao->saveUser($user);
+        $this->userDao->saveUser($user);
     }
 
     public function update(array $user): void
@@ -39,7 +39,7 @@ final class UserServiceImpl implements UserService
         $this->findById($user['id']);
 
         try {
-            $this->userInterfaceDao->updateUser($user);
+            $this->userDao->updateUser($user);
         } catch (Exception $e) {
             throw new UserException($e->getMessage(), 500);
         }
@@ -50,7 +50,7 @@ final class UserServiceImpl implements UserService
     {
         $this->findById($idUser);
         try {
-            $this->userInterfaceDao->deleteUser($idUser);
+            $this->userDao->deleteUser($idUser);
         } catch (Exception $e) {
             throw new UserException($e->getMessage(), 500);
         }
@@ -58,7 +58,7 @@ final class UserServiceImpl implements UserService
 
     public function findById(string $idUser): User
     {
-        $userSearch = $this->userInterfaceDao->findUserById($idUser);
+        $userSearch = $this->userDao->findUserById($idUser);
         if (is_null($userSearch) || empty($userSearch)) {
             throw new UserException('Nenhum usuário identificado com este ID', 404);
         }
@@ -74,7 +74,7 @@ final class UserServiceImpl implements UserService
 
     public function findByEmail(string $email): User
     {
-        $userSearch = $this->userInterfaceDao->findUserByEmail($email);
+        $userSearch = $this->userDao->findUserByEmail($email);
         if (is_null($userSearch) || empty($userSearch)) {
             throw new UserException('E-mail informado não cadastrado', 404);
         }
@@ -90,7 +90,7 @@ final class UserServiceImpl implements UserService
 
     public function findAll(): array
     {
-        $allUsers = $this->userInterfaceDao->getAllUsers();
+        $allUsers = $this->userDao->getAllUsers();
         if (is_null($allUsers)) {
             return [];
         }
