@@ -11,7 +11,12 @@ final class MysqlPdoTest extends TestCase
     private DatabaseOperations $db;
     protected function setUp(): void
     {
-        $this->db = new MysqlPdo();
+        $this->db = new MysqlPdo(
+            getenv('DB_HOST'),
+            getenv('DB_DATABASE'),
+            getenv('DB_USERNAME'),
+            getenv('DB_PASSWORD')
+        );
     }
 
     /**

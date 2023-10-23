@@ -11,13 +11,8 @@ final class MysqlPdo implements DatabaseOperations
 {
     private $connection;
 
-    public function __construct()
+    public function __construct($dbHost, $dbName, $dbUser, $dbPass)
     {
-        $dbHost = getenv('DB_HOST');
-        $dbName = getenv('DB_DATABASE');
-        $dbUser = getenv('DB_USERNAME');
-        $dbPass = getenv('DB_PASSWORD');
-
         $dsn = "mysql:host=$dbHost;dbname=$dbName;charset=utf8";
         try {
             $this->connection = new PDO($dsn, $dbUser, $dbPass);
