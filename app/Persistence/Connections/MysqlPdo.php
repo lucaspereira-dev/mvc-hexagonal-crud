@@ -10,7 +10,7 @@ final class MysqlPdo implements ConnectionInterface
 {
     private $connection;
 
-    public function __construct() 
+    public function __construct()
     {
         $dbHost = getenv('DB_HOST');
         $dbName = getenv('DB_DATABASE');
