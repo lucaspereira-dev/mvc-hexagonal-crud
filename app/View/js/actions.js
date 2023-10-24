@@ -32,7 +32,7 @@ function listUsers() {
                     `);
       });
     },
-    error: function (xhr, status, error) {
+    error: function ({ responseJSON }, status, error) {
       if (Object.hasOwn(error, "message")) {
         notification(error.message, "error");
       }
@@ -51,7 +51,7 @@ async function getUser(id) {
       $("#password").val(user.password);
       $("#birthday").val(user.birthday);
     },
-    error: function (xhr, status, error) {
+    error: function ({ responseJSON }, status, error) {
       $("#userModal").modal("hide");
       if (Object.hasOwn(error, "message")) {
         notification(error.message, "error");
@@ -99,7 +99,7 @@ async function updateUser(userId, formData) {
         notification(data.message);
       }
     },
-    error: function (xhr, status, error) {
+    error: function ({ responseJSON }, status, error) {
       if (Object.hasOwn(error, "message")) {
         notification(error.message, "error");
       }
@@ -119,7 +119,7 @@ async function deleteUser(id) {
           notification(data.message);
         }
       },
-      error: function (xhr, status, error) {
+      error: function ({ responseJSON }, status, error) {
         if (Object.hasOwn(error, "message")) {
           notification(error.message, "error");
         }
