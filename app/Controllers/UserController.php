@@ -38,11 +38,22 @@ final class UserController extends Controller
 
     public function updateUser(Request $request, Response $response, array $args): Response
     {
-        $data = $request->getParsedBody();
-        $data['id'] = $args['id'];
-        $this->userService->update($data);
-
-        return $this->response($response, ['message' => 'Usuário atualizado com sucesso'], 200);
+        try {
+            $data = $request->getParsedBody();
+            $data['id'] = $args['id'];
+            $this->userService->update($data);
+            return $this->response($response, ['message' => 'Usuário atualizado com sucesso'], 200);
+        } catch (UserException $e) {
+            $exception = json_decode($e->getMessage(), true);
+            return $this->response($response, [
+                'message' => 'Não foi possível criar usuário',
+                'errors' => $exception['errors']
+            ], 400);
+        } catch (Exception $e) {
+            return $this->response($response, [
+                'message' => 'Não conseguimos completar esta ação'
+            ], $e->getCode());
+        }
     }
 
     public function deleteUser(Request $request, Response $response, array $args): Response
