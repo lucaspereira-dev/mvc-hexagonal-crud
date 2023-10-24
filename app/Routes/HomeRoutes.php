@@ -10,7 +10,7 @@ function homeRoutes(App $app)
 {
     $app->get('/', function (Request $request, Response $response) {
         $response = $response->withHeader('Content-Type', 'text/html');
-        $response->getBody()->write(file_get_contents(__DIR__ . '/../app/View/index.html'));
+        $response->getBody()->write(file_get_contents(__DIR__ . '/../View/index.html'));
         return $response;
     });
 }
