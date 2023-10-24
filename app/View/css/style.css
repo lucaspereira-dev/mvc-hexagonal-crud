@@ -1,0 +1,17 @@
+table {
+  border-collapse: collapse;
+  width: 80%;
+  margin: 20px auto;
+}
+th,td {
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+#userTable {
+  border-radius: 10px;
+  overflow: hidden;
+}
+td:last-child {
+  width: 106px;
+}

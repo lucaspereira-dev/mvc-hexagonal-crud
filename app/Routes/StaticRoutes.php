@@ -8,7 +8,8 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 
 function staticRoutes(App $app)
 {
-    $app->get('/assets/{file}', function (Request $request, Response $response, $args) {
+    $app->get('/assets/{file:..+}', function (Request $request, Response $response, $args) {
+        
         $filePath = __DIR__ . '/../View/' . $args['file'];
 
         if (!file_exists($filePath)) {
