@@ -32,6 +32,11 @@ function listUsers() {
                     `);
       });
     },
+    error: function (xhr, status, error) {
+      if (Object.hasOwn(error, "message")) {
+        notification(error.message, "error");
+      }
+    },
   });
 }
 
@@ -46,6 +51,54 @@ async function getUser(id) {
       $("#password").val(user.password);
       $("#birthday").val(user.birthday);
     },
+    error: function (xhr, status, error) {
+      $("#userModal").modal("hide");
+      if (Object.hasOwn(error, "message")) {
+        notification(error.message, "error");
+      }
+    },
+  });
+}
+
+async function createUser(formData) {
+  await $.ajax({
+    url: "/users",
+    method: "POST",
+    contentType: "application/json",
+    data: JSON.stringify(formData),
+    success: function (data) {
+      $("#userModal").modal("hide");
+      listUsers();
+      if (Object.hasOwn(data, "message")) {
+        notification(data.message);
+      }
+    },
+    error: function (xhr, status, error) {
+      if (Object.hasOwn(error, "message")) {
+        notification(error.message, "error");
+      }
+    },
+  });
+}
+
+async function updateUser(userId, formData) {
+  await $.ajax({
+    url: "/users/" + userId,
+    method: "PUT",
+    contentType: "application/json",
+    data: JSON.stringify(formData),
+    success: function (data) {
+      $("#userModal").modal("hide");
+      listUsers();
+      if (Object.hasOwn(data, "message")) {
+        notification(data.message);
+      }
+    },
+    error: function (xhr, status, error) {
+      if (Object.hasOwn(error, "message")) {
+        notification(error.message, "error");
+      }
+    },
   });
 }
 
@@ -55,77 +108,38 @@ async function deleteUser(id) {
     await $.ajax({
       url: "/users/" + id,
       method: "DELETE",
-      success: function () {
-        $("#confirmDeleteModal").modal("hide");
+      success: function (data) {
         listUsers();
+        if (Object.hasOwn(data, "message")) {
+          notification(data.message);
+        }
       },
-    })
-      .then((response) => {
-        notification("Exclusão realizada com sucesso");
-      })
-      .catch((e) => {
-        notification("Não foi possível realizar ação", "toast-error");
-      });
+      error: function (xhr, status, error) {
+        if (Object.hasOwn(error, "message")) {
+          notification(error.message, "error");
+        }
+      },
+      complete: function () {
+        $("#confirmDeleteModal").modal("hide");
+      },
+    });
   });
 }
-
-function cleanInputs() {
-  $("#userId").val('');
-  $("#name").val('');
-  $("#email").val('');
-  $("#password").val('');
-  $("#birthday").val('');
-}
-
-async function createUser(formData) {
-  await $.ajax({
-    url: "/users",
-    method: "POST",
-    contentType: "application/json",
-    data: JSON.stringify(formData),
-    success: function () {
-      $("#userModal").modal("hide");
-      listUsers();
-    },
-  })
-    .then((response) => {
-      notification("Usuário criado com sucesso");
-    })
-    .catch((e) => {
-      notification("Não foi possível criar novo usuário", "toast-error");
-    });
-}
-
-/**
- * toast-error|toast-warning|toast-info|toast-success
- */
-function notification(message, type = "toast-success", duration = 3000) {
-  Toastify({
-    text: message,
-    duration: 3000,
-    gravity: "top",
-    className: type,
-    close: true,
-  }).showToast();
-}
-
-async function updateUser(userId, formData) {
-  await $.ajax({
-    url: "/users/" + userId,
-    method: "PUT",
-    contentType: "application/json",
-    data: JSON.stringify(formData),
-    success: function () {
-      $("#userModal").modal("hide");
-      listUsers();
-    },
-  })
-    .then((response) => {
-      notification("Edição realizada com sucesso");
-    })
-    .catch((e) => {
-      notification("Não foi possível realizar ação", "toast-error");
-    });
+// ------------------------------------------------------------------------------------------------
+function notification(message, type = "success", duration = 3000) {
+  const style = {
+    timeOut: duration,
+    positionClass: "toast-bottom-right",
+  };
+  if (type == "success") {
+    toastr.success(message, style);
+  } else if (type == "info") {
+    toastr.info(message, style);
+  } else if (type == "warning") {
+    toastr.warning(message, style);
+  } else if (type == "error") {
+    toastr.error(message, style);
+  }
 }
 
 function serializeFormToJson(form) {
@@ -138,6 +152,17 @@ function serializeFormToJson(form) {
   return formData;
 }
 
+function cleanInputs() {
+  $("#userId").val("");
+  $("#name").val("");
+  $("#email").val("");
+  $("#password").val("");
+  $("#birthday").val("");
+}
+
+// -----------------------------------------------------------
+
+// Carregamento da pagina e evento para modal
 window.addEventListener("load", function () {
   listUsers();
   $("#userForm").submit(function (e) {
@@ -147,4 +172,3 @@ window.addEventListener("load", function () {
     userId ? updateUser(userId, formData) : createUser(formData);
   });
 });
-
