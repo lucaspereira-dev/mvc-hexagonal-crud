@@ -12,8 +12,9 @@
             "Tests\\": "tests/"
         },
         "files": [
-            "routes/users.php",
-            "routes/index.php"
+            "routes/HomeRoutes.php",
+            "routes/StaticRoutes.php",
+            "routes/UserRoutes.php"
         ]
     },
     "scripts": {

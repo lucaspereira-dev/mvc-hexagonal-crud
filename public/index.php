@@ -1,13 +1,10 @@
 <?php
 
-use App\Factory\UserWithPdoControllerFactory;
 use DI\Container;
 use Slim\Factory\AppFactory;
-use function Routes\routesUsers;
-use function Routes\routesHomePage;
 use App\Controllers\UserController;
 use Symfony\Component\Dotenv\Dotenv;
-use Slim\Middleware\StaticMiddleware;
+use App\Factory\UserWithPdoControllerFactory;
 
 $pathEnv = dirname(__DIR__) . '/.env';
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -22,8 +19,12 @@ $container->set(UserController::class, function () {
 
 AppFactory::setContainer($container);
 $app = AppFactory::create();
-routesHomePage($app);
-routesUsers($app);
+
+// Carregamento de rotas (Autoload files composer)
+Routes\homeRoutes($app);
+Routes\staticRoutes($app);
+Routes\userRoutes($app);
+
 $app->addBodyParsingMiddleware();
 $app->addErrorMiddleware(true, true, true);
 $app->run();

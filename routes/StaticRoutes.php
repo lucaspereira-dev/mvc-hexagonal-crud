@@ -6,14 +6,8 @@ use Slim\App;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
-function routesHomePage(App $app)
+function staticRoutes(App $app)
 {
-    $app->get('/', function (Request $request, Response $response) {
-        $response = $response->withHeader('Content-Type', 'text/html');
-        $response->getBody()->write(file_get_contents(__DIR__ . '/../app/View/index.html'));
-        return $response;
-    });
-
     $app->get('/assets/{file}', function (Request $request, Response $response, $args) {
         $filePath = __DIR__ . '/../app/View/' . $args['file'];
 
