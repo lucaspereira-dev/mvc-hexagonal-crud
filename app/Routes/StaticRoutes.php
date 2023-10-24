@@ -9,7 +9,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 function staticRoutes(App $app)
 {
     $app->get('/assets/{file}', function (Request $request, Response $response, $args) {
-        $filePath = __DIR__ . '/../app/View/' . $args['file'];
+        $filePath = __DIR__ . '/../View/' . $args['file'];
 
         if (!file_exists($filePath)) {
             return $response->withStatus(404, 'File Not Found');
