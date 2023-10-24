@@ -73,9 +73,14 @@ async function createUser(formData) {
         notification(data.message);
       }
     },
-    error: function (xhr, status, error) {
-      if (Object.hasOwn(error, "message")) {
-        notification(error.message, "error");
+    error: function ({ responseJSON }, status, error) {
+      if (Object.hasOwn(responseJSON, "message")) {
+        notification(responseJSON.message, "error");
+      }
+      if (Object.hasOwn(responseJSON, "errors") && responseJSON.errors) {
+        for (const key in responseJSON.errors) {
+          displayErrorInput(key, responseJSON.errors[key]);
+        }
       }
     },
   });
@@ -140,6 +145,13 @@ function notification(message, type = "success", duration = 3000) {
   } else if (type == "error") {
     toastr.error(message, style);
   }
+}
+
+function displayErrorInput(input, message) {
+  $(`#${input}Error`).text(`* ${message}`);
+  setTimeout(function () {
+    $(`#${input}Error`).text("");
+  }, 9000);
 }
 
 function serializeFormToJson(form) {

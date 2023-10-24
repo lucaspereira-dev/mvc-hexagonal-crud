@@ -2,9 +2,11 @@
 
 namespace App\Controllers;
 
+use Core\Exceptions\UserException;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Core\Interfaces\UserService;
+use Exception;
 
 final class UserController extends Controller
 {
@@ -17,10 +19,21 @@ final class UserController extends Controller
 
     public function createUser(Request $request, Response $response, array $args): Response
     {
-        $data = $request->getParsedBody();
-        $this->userService->create($data);
-
-        return $this->response($response, ['message' => 'Usuário criado com sucesso'], 201);
+        try {
+            $data = $request->getParsedBody();
+            $this->userService->create($data);
+            return $this->response($response, ['message' => 'Usuário criado com sucesso'], 201);
+        } catch (UserException $e) {
+            $exception = json_decode($e->getMessage(), true);
+            return $this->response($response, [
+                'message' => 'Não foi possível criar usuário',
+                'errors' => $exception['errors']
+            ], 400);
+        } catch (Exception $e) {
+            return $this->response($response, [
+                'message' => 'Não conseguimos completar esta ação'
+            ], $e->getCode());
+        }
     }
 
     public function updateUser(Request $request, Response $response, array $args): Response
