@@ -33,8 +33,8 @@ function listUsers() {
       });
     },
     error: function ({ responseJSON }, status, error) {
-      if (Object.hasOwn(error, "message")) {
-        notification(error.message, "error");
+      if (Object.hasOwn(responseJSON, "message")) {
+        notification(responseJSON.message, "error");
       }
     },
   });
@@ -53,8 +53,8 @@ async function getUser(id) {
     },
     error: function ({ responseJSON }, status, error) {
       $("#userModal").modal("hide");
-      if (Object.hasOwn(error, "message")) {
-        notification(error.message, "error");
+      if (Object.hasOwn(responseJSON, "message")) {
+        notification(responseJSON.message, "error");
       }
     },
   });
@@ -100,8 +100,8 @@ async function updateUser(userId, formData) {
       }
     },
     error: function ({ responseJSON }, status, error) {
-      if (Object.hasOwn(error, "message")) {
-        notification(error.message, "error");
+      if (Object.hasOwn(responseJSON, "message")) {
+        notification(responseJSON.message, "error");
       }
     },
   });
