@@ -33,9 +33,7 @@ function listUsers() {
       });
     },
     error: function ({ responseJSON }, status, error) {
-      if (Object.hasOwn(responseJSON, "message")) {
-        notification(responseJSON.message, "error");
-      }
+      handleDisplayErrors(responseJSON)
     },
   });
 }
@@ -53,9 +51,7 @@ async function getUser(id) {
     },
     error: function ({ responseJSON }, status, error) {
       $("#userModal").modal("hide");
-      if (Object.hasOwn(responseJSON, "message")) {
-        notification(responseJSON.message, "error");
-      }
+      handleDisplayErrors(responseJSON)
     },
   });
 }
@@ -74,14 +70,7 @@ async function createUser(formData) {
       }
     },
     error: function ({ responseJSON }, status, error) {
-      if (Object.hasOwn(responseJSON, "message")) {
-        notification(responseJSON.message, "error");
-      }
-      if (Object.hasOwn(responseJSON, "errors") && responseJSON.errors) {
-        for (const key in responseJSON.errors) {
-          displayErrorInput(key, responseJSON.errors[key]);
-        }
-      }
+      handleDisplayErrors(responseJSON)
     },
   });
 }
@@ -100,9 +89,7 @@ async function updateUser(userId, formData) {
       }
     },
     error: function ({ responseJSON }, status, error) {
-      if (Object.hasOwn(responseJSON, "message")) {
-        notification(responseJSON.message, "error");
-      }
+      handleDisplayErrors(responseJSON)
     },
   });
 }
@@ -120,9 +107,7 @@ async function deleteUser(id) {
         }
       },
       error: function ({ responseJSON }, status, error) {
-        if (Object.hasOwn(error, "message")) {
-          notification(error.message, "error");
-        }
+        handleDisplayErrors(responseJSON)
       },
       complete: function () {
         $("#confirmDeleteModal").modal("hide");
@@ -144,6 +129,17 @@ function notification(message, type = "success", duration = 3000) {
     toastr.warning(message, style);
   } else if (type == "error") {
     toastr.error(message, style);
+  }
+}
+
+function handleDisplayErrors(response) {
+  if (Object.hasOwn(response, "message")) {
+    notification(response.message, "error");
+  }
+  if (Object.hasOwn(response, "errors") && response.errors) {
+    for (const key in response.errors) {
+      displayErrorInput(key, response.errors[key]);
+    }
   }
 }
 

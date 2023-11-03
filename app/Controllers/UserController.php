@@ -46,8 +46,8 @@ final class UserController extends Controller
         } catch (UserException $e) {
             $exception = json_decode($e->getMessage(), true);
             return $this->response($response, [
-                'message' => 'Não foi possível criar usuário',
-                'errors' => $exception['errors']
+                'message' => 'Não foi possível atualizado usuário',
+                'errors' => $exception['errors'] ?? []
             ], 400);
         } catch (Exception $e) {
             return $this->response($response, [
